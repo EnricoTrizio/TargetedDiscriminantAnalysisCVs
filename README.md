@@ -1,4 +1,4 @@
-# TargetedDiscriminantAnalysis_CVs
+# From_Metadynamics_to_reaction_profiles
 Supporting material Deep-TDA
 
 #### Contents:
@@ -6,7 +6,7 @@ Supporting material Deep-TDA
   2. Trained models used in the paper
 
 #### Tutorial
-You can find a [Google Colab notebook](https://colab.research.google.com/drive/1TO7bAkmIznsdfea2i5NXfNtytJrnkkIt?usp=sharing) to use a NN to train a CV using either the Deep-TDA or Deep-DA model.
+You can find a [Google Colab notebook](https://colab.research.google.com/drive/1TO7bAkmIznsdfea2i5NXfNtytJrnkkIt?usp=sharing) to use a NN to train a CV using either the Deep-TDA model.
 
 
 #### Contacts
