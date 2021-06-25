@@ -1,5 +1,5 @@
-# From_Metadynamics_to_reaction_profiles
-Supporting material Deep-TDA
+# From Metadynamics to reaction profiles
+Supporting material for Deep-TDA CVs
 
 #### Contents:
   1. Input file for reproducing the simulations in the paper
