@@ -1,4 +1,4 @@
-# From Metadynamics to reaction profiles
+# From Enhanced Sampling to Reaction Profiles
 Supporting material for Deep-TDA CVs
 
 #### Contents:
@@ -6,7 +6,7 @@ Supporting material for Deep-TDA CVs
   2. Trained models used in the paper
 
 #### Tutorial
-You can find a [Google Colab notebook](https://colab.research.google.com/drive/1TO7bAkmIznsdfea2i5NXfNtytJrnkkIt?usp=sharing) to use a NN to train a CV using either the Deep-TDA model.
+You can find a [Google Colab notebook](https://colab.research.google.com/drive/1TO7bAkmIznsdfea2i5NXfNtytJrnkkIt?usp=sharing) to use a NN to train a CV using the Deep-TDA model.
 
 
 #### Contacts
