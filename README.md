@@ -2,7 +2,7 @@
 Supporting material for Deep-TDA CVs
 
 #### Contents:
-  - Input files foor the training of the models
+  - Input files for the training of the models
   - Input files for reproducing the simulations in the paper
   - Trained models used in the paper
 
