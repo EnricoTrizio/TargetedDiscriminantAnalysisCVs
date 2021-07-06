@@ -2,8 +2,9 @@
 Supporting material for Deep-TDA CVs
 
 #### Contents:
-  1. Input file for reproducing the simulations in the paper
-  2. Trained models used in the paper
+  - Input files foor the training of the models
+  - Input files for reproducing the simulations in the paper
+  - Trained models used in the paper
 
 #### Tutorial
 You can find a [Google Colab notebook](https://colab.research.google.com/drive/1TO7bAkmIznsdfea2i5NXfNtytJrnkkIt?usp=sharing) to use a NN to train a CV using the Deep-TDA model.
