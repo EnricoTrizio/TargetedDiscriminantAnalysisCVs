@@ -1,9 +1,9 @@
 # vim: ft=plumed
-# # --- (0) LOAD PYTORCH ---
+# # --- LOAD PYTORCH ---
 
-#LOAD FILE=../code/PytorchModel.cpp
+#LOAD FILE=../../code/PytorchModel.cpp
 
-# --- (1) ATOMS DEFINITIONS and ALIGNMENT ---
+# --- ATOMS DEFINITIONS and ALIGNMENT ---
 
 HOST: GROUP ATOMS=16-211      #host atoms
 LIGC: GROUP ATOMS=1-7,9  #carbon atoms in the ligand
@@ -29,7 +29,7 @@ v8: FIXEDATOM AT=2.0136,2.0136,3.75
 cyl: DISTANCE ATOMS=v1,lig COMPONENTS
 radius: MATHEVAL ARG=cyl.x,cyl.y FUNC=sqrt(x*x+y*y) PERIODIC=NO
 
-# --- (2) DESCRIPTORS ---
+# --- DESCRIPTORS ---
 
 L1: COORDINATION GROUPA=l1 GROUPB=WO SWITCH={RATIONAL D_0=0.0 R_0=0.25 NN=6 MM=10} NLIST NL_CUTOFF=1.0 NL_STRIDE=5
 L2: COORDINATION GROUPA=l2 GROUPB=WO SWITCH={RATIONAL D_0=0.0 R_0=0.25 NN=6 MM=10} NLIST NL_CUTOFF=1.0 NL_STRIDE=5
@@ -57,7 +57,7 @@ d10: MATHEVAL ARG=V6 FUNC=(x/2.8)-1.0 PERIODIC=NO
 d11: MATHEVAL ARG=V7 FUNC=(x/2.8)-1.0 PERIODIC=NO
 d12: MATHEVAL ARG=V8 FUNC=(x/2.8)-1.0 PERIODIC=NO
 
-# --- (3) DEEP-DA CV and other quantities ---
+# --- DEEP-DA CV and other quantities ---
 
 nncv: PYTORCH_MODEL MODEL=deepDA_OAMeG2.pt ARG=d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12  #NN output
 
@@ -65,7 +65,7 @@ funnel: MATHEVAL ARG=radius,cyl.z VAR=r,z FUNC=(r+1.0*(-1.2+z))*step(-z+1.)+(r-0
 UPPER_WALLS AT=0 ARG=funnel KAPPA=2000.0 LABEL=funnelwall  #funnel restraint
 UPPER_WALLS AT=1.8 ARG=cyl.z KAPPA=4000.0 EXP=2 LABEL=upper_wall  #upper limit of cyl.z
 
-# --- (4) OPES  ---
+# --- OPES  ---
 
 OPES_METAD ...
    LABEL=opes
