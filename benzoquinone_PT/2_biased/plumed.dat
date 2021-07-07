@@ -2,11 +2,13 @@
 
 # input file for biased intramolecular double proton transfer in 2,5-diamino-1,4-benzoquinone with Deep-TDA
 
-# we can use the coordination numbero of the havy atoms!
+# we can use the coordination numbero of the heavy atoms!
 # we would like to preserve the symmetries
 
 #UNITS
 UNITS LENGTH=A
+
+LOAD FILE=../../code/PytorchModel.cpp
 
 # ==== GROUPS ====
 C: GROUP ATOMS=1,2,3,4,5,6
