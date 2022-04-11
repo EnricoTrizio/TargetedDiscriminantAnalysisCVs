@@ -1,6 +1,9 @@
 # vim: ft=plumed
+# # --- (0) LOAD PYTORCH ---
 
-# ---  ATOMS DEFINITIONS and ALIGNMENT ---
+#LOAD FILE=../code/PytorchModel.cpp
+
+# --- (1) ATOMS DEFINITIONS and ALIGNMENT ---
 
 HOST: GROUP ATOMS=16-211      #host atoms
 LIGC: GROUP ATOMS=1-7,9  #carbon atoms in the ligand
@@ -11,7 +14,7 @@ l4: GROUP ATOMS=9
 WO: GROUP ATOMS=221-6520:3    #water oxygen atoms
 
 WHOLEMOLECULES ENTITY0=HOST
-FIT_TO_TEMPLATE STRIDE=1 REFERENCE=conf_template.pdb TYPE=OPTIMAL #coordinates alignment
+FIT_TO_TEMPLATE STRIDE=1 REFERENCE=../conf_template.pdb TYPE=OPTIMAL #coordinates alignment
 lig: CENTER ATOMS=LIGC
 
 v1: FIXEDATOM AT=2.0136,2.0136,2.0   #virtual atoms
@@ -26,7 +29,7 @@ v8: FIXEDATOM AT=2.0136,2.0136,3.75
 cyl: DISTANCE ATOMS=v1,lig COMPONENTS
 radius: MATHEVAL ARG=cyl.x,cyl.y FUNC=sqrt(x*x+y*y) PERIODIC=NO
 
-# --- DESCRIPTORS ---
+# --- (2) DESCRIPTORS ---
 
 L1: COORDINATION GROUPA=l1 GROUPB=WO SWITCH={RATIONAL D_0=0.0 R_0=0.25 NN=6 MM=10} NLIST NL_CUTOFF=1.0 NL_STRIDE=5
 L2: COORDINATION GROUPA=l2 GROUPB=WO SWITCH={RATIONAL D_0=0.0 R_0=0.25 NN=6 MM=10} NLIST NL_CUTOFF=1.0 NL_STRIDE=5
@@ -54,7 +57,10 @@ d10: MATHEVAL ARG=V6 FUNC=(x/2.8)-1.0 PERIODIC=NO
 d11: MATHEVAL ARG=V7 FUNC=(x/2.8)-1.0 PERIODIC=NO
 d12: MATHEVAL ARG=V8 FUNC=(x/2.8)-1.0 PERIODIC=NO
 
-# --- other quantities ---
+# --- (3) DEEP-LDA CV and other quantities ---
+
+#s: PYTORCH_MODEL MODEL=modelG2_a.pt ARG=d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12  #NN output
+#sw: MATHEVAL ARG=s.node-0 FUNC=x+x^3 PERIODIC=NO   #Deep-LDA CV
 
 funnel: MATHEVAL ARG=radius,cyl.z VAR=r,z FUNC=(r+1.0*(-1.2+z))*step(-z+1.)+(r-0.2)*step(z-1.) PERIODIC=NO
 UPPER_WALLS AT=0 ARG=funnel KAPPA=2000.0 LABEL=funnelwall  #funnel restraint
@@ -66,6 +72,21 @@ LOWER_WALLS AT=1.5 ARG=cyl.z KAPPA=4000.0 EXP=2 LABEL=lower_wall #lower limit of
 ang: ANGLE ATOMS=v3,v5,8,6   #angle of a ligand's axis with z
 cosang: MATHEVAL ARG=ang FUNC=cos(x) PERIODIC=NO
 
+# --- (4) OPES  ---
+
+#OPES_METAD ...
+#   LABEL=opes
+#   ARG=cyl.z,sw
+#   FILE=../Kernels.data
+#   RESTART=NO
+#   STATE_RFILE=../compressed_Kernels.data
+#   STATE_WFILE=../compressed_Kernels.data
+#   STATE_WSTRIDE=50000
+#   PACE=500
+#   BARRIER=50
+#   WALKERS_MPI
+#... OPES_METAD
+#
 PRINT ARG=* STRIDE=50 FILE=COLVAR FMT=%8.4f
 PRINT ARG=d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12,cyl.z STRIDE=50 FILE=descriptors
 ENDPLUMED
