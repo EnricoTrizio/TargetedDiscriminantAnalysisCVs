@@ -56,7 +56,7 @@ d12: MATHEVAL ARG=V8 FUNC=(x/2.8)-1.0 PERIODIC=NO
 
 # --- (3) DEEP-LDA CV and other quantities ---
 
-nncv: PYTORCH_MODEL FILE=../deepTDA_OAMeG2.pt ARG=d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12  #NN output
+nncv: PYTORCH_MODEL FILE=deepTDA_OAMeG2.pt ARG=d1,d2,d3,d4,d5,d6,d7,d8,d9,d10,d11,d12  #NN output
 
 funnel: MATHEVAL ARG=radius,cyl.z VAR=r,z FUNC=(r+1.0*(-1.2+z))*step(-z+1.)+(r-0.2)*step(z-1.) PERIODIC=NO
 UPPER_WALLS AT=0 ARG=funnel KAPPA=2000.0 LABEL=funnelwall  #funnel restraint
