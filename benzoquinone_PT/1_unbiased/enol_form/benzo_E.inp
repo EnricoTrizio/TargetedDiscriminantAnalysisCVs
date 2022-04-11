@@ -1,0 +1,93 @@
+&GLOBAL
+  PROJECT benzo_pm6_C
+  RUN_TYPE MD
+  PRINT_LEVEL SILENT
+&END GLOBAL
+
+!&EXT_RESTART
+!RESTART_FILE_NAME Aldol_pm6_R-1.restart
+!&END
+
+&MOTION
+  &MD
+    ENSEMBLE NVT
+    STEPS 1000000
+    TIMESTEP 0.5
+    TEMPERATURE 300
+   &THERMOSTAT
+        &CSVR
+        TIMECON 100
+        &END
+   &END THERMOSTAT
+  &END MD
+  &PRINT
+     &VELOCITIES OFF
+     &END
+     &FORCES
+      &EACH
+         MD 4000
+      &END
+     &END
+     &TRAJECTORY
+      &EACH
+         MD 20
+      &END
+     &END
+     &RESTART
+      &EACH
+          MD 1000
+      &END
+     &END
+     &RESTART_HISTORY
+       &EACH
+          MD 50000
+       &END
+     &END
+  &END PRINT
+
+ &FREE_ENERGY
+    &METADYN
+      USE_PLUMED .TRUE.
+      PLUMED_INPUT_FILE ../plumed.dat
+    &END METADYN
+  &END FREE_ENERGY
+
+&END MOTION
+
+&FORCE_EVAL
+  METHOD Quickstep
+  &DFT
+    &QS
+      METHOD PM6
+    &END QS
+    &SCF
+    SCF_GUESS ATOMIC
+ #   SCF_GUESS RESTART
+    &END SCF
+  &END DFT
+  &SUBSYS
+    &CELL
+      ABC 15.0 15.0 15.0
+      PERIODIC NONE
+    &END CELL
+    &COORD
+  C       -1.6344252675      0.2939399691     -0.0103722005                 
+  C       -0.9347757615      1.6007883243      0.0097510332                 
+  C        0.5659650196      1.6260913412      0.0108040284                 
+  C        1.2453665562      0.4669799812     -0.0064969626                 
+  C        0.5413865094     -0.8350493715     -0.0265793827                 
+  C       -0.9464156986     -0.8625893233     -0.0276263192                 
+  H       -2.7211812638      0.2766669200     -0.0110982411                 
+  H        2.3323320928      0.4812023574     -0.0057997924                 
+  N       -1.6470726508      2.6727377995      0.0256774857                 
+  H        0.8830182327      3.6597772358      0.0418563542                 
+  H       -1.2529841979      3.6216345698      0.0402291992                 
+  N        1.2310002151     -1.9205312860     -0.0427802214                 
+  H       -2.5653733754     -2.1122135408     -0.0472562820                 
+  H        0.7906924845     -2.8520710376     -0.0571238400                 
+  O        1.2759005590      2.7789043869      0.0286310301                 
+  O       -1.5992914903     -2.0482765708     -0.0458894032 
+    &END COORD
+  &END SUBSYS
+&END FORCE_EVAL
+
