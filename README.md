@@ -6,6 +6,8 @@ Enrico Trizio* and Michele Parrinello, J. Phys. Chem. Lett. 2021, 12, 35, 8621â€
 [![DOI](http://img.shields.io/badge/DOI-10.1021%2Facs.jpclett.1c02317-yellow)](https://doi.org/10.1021/acs.jpclett.1c02317)
 [![plumID:21.028](https://www.plumed-nest.org/eggs/21/028/badge.svg)](https://www.plumed-nest.org/eggs/21/028/)
 
+#### NOTE
+For an updated version of the code and tutorials, also on other machine learning collective variables, check our [mlcolvar library](https://github.com/luigibonati/mlcolvar)
 
 #### Contents:
   - Input files for the training of the models
@@ -17,6 +19,6 @@ You can find a [Google Colab notebook](https://colab.research.google.com/drive/1
 
 
 #### Contacts
-For comments or questions please write an email to enrico.trizio@iit.it
+For comments or questions, please write an email to enrico.trizio@iit.it
 
 Cheers!
